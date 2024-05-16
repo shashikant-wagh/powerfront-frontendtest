@@ -63,7 +63,7 @@ function App() {
   return (
     <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
       {/* Header section */}
-      <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+      <div className="flex sm:items-center justify-between p-3 border-b-2 border-gray-200">
         <div className="relative flex items-center space-x-4">
           <div className="flex flex-col leading-tight">
             <div className="text-2xl mt-1 flex items-center">
@@ -134,7 +134,7 @@ function App() {
             placeholder="Write your message!"
             className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-6 bg-gray-200 rounded-md py-3"
           />
-          <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
+          <div className="absolute right-0 items-center inset-y-0 ">
             <button
               type="submit"
               className="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
