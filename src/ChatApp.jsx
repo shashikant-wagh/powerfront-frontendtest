@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 
 import chat from "./assets/js/chat.js";
 
+// Formate date time in readable format
 const formatDateTime = (datetime) => {
   const date = new Date(datetime);
 
@@ -17,19 +18,25 @@ const formatDateTime = (datetime) => {
 };
 
 function App() {
+  // State for the input message
   const [message, setMessage] = useState("");
+  // State for storing chat history
   const [chatHistory, setChatHistory] = useState([]);
+  // Reference for the end of messages to scroll to
   const messagesEndRef = useRef(null);
 
+  // Effect to fetch initial chat history on component mount
   useEffect(() => {
     chat.getChatHistory(setChatHistory);
   }, []);
 
+  // Effect to add listener for incoming chat messages
   useEffect(() => {
     chat.addListener("chatreceived", function (data) {
       setChatHistory((prev) => [...prev, data.chat]);
     });
 
+    // Clean-up function to remove listener on component unmount
     return () => {
       chat.removeListener("chatreceived");
     };
@@ -39,12 +46,14 @@ function App() {
     scrollToBottom();
   }, [chatHistory]);
 
+  // Function to scroll to bottom of chat messages
   const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      // messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current?.scrollIntoView) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  // Function to handle form submission
   const onSubmit = (e) => {
     e.preventDefault();
     chat.sendChat(message);
@@ -53,6 +62,7 @@ function App() {
 
   return (
     <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+      {/* Header section */}
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div className="relative flex items-center space-x-4">
           <div className="flex flex-col leading-tight">
@@ -62,10 +72,12 @@ function App() {
           </div>
         </div>
       </div>
+      {/* Chat messages section */}
       <div
         id="messages"
         className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
       >
+        {/* Mapping over chat history to render messages */}
         {chatHistory.map((chat, index) => {
           const positionClass =
             chat.from.toLowerCase() === "visitor" ? "justify-end" : "";
@@ -109,9 +121,11 @@ function App() {
             </div>
           );
         })}
+        {/* Reference element for scrolling to bottom */}
         <div ref={messagesEndRef} />
       </div>
       <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+        {/* Form for sending messages */}
         <form className="relative flex" onSubmit={onSubmit}>
           <input
             type="text"
