@@ -17,7 +17,7 @@ const formatDateTime = (datetime) => {
   );
 };
 
-function App() {
+function ChatApp() {
   // State for the input message
   const [message, setMessage] = useState("");
   // State for storing chat history
@@ -98,9 +98,9 @@ function App() {
             : "rounded-bl-none";
 
           return (
-            <div key={index} className="chat-message">
+            <div key={index} className="mx-2">
               <div className={`flex items-end ${positionClass}`}>
-                <div className="flex flex-col space-y-2 max-w-xs mx-2 order-2 items-start">
+                <div className="flex flex-col space-y-2 max-w-xs order-2 items-start">
                   <div>
                     <span
                       className={`px-4 py-2 rounded-lg inline-block ${shapeClass} ${colorClass}`}
@@ -113,7 +113,7 @@ function App() {
 
               {chatContinues ? null : (
                 <div
-                  className={`flex items-end  text-xs text-right mt-2 ${positionClass}`}
+                  className={`flex items-end  text-xs text-right mt-2 text-gray-700 ${positionClass}`}
                 >
                   {formatDateTime(chat.datetime)}
                 </div>
@@ -156,4 +156,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChatApp;
